@@ -1,0 +1,230 @@
+<html>
+  <head>
+    <title>LinkBounce</title>
+    <meta name="viewport" content="width=device-width">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+    <style>
+      body{
+        background:radial-gradient(circle, rgb(17, 17, 17) 0%, rgba(0,0,0,1) 100%);
+        color:#d1d1d1;
+        display:flex;
+        align-items: center;
+        justify-content: center;
+        user-select:none;
+      }
+      *{
+        font-family:Inter;
+      }
+      #background{
+        width:500px;
+        margin:auto;
+        position:absolute;
+        height:100vh;
+        z-index:-5;
+        background:radial-gradient(circle at center 30%, rgba(128, 44, 255, 0.251) 0%, rgba(0,0,0,0) 35%);
+      }
+      body > div#lbm{
+        width:250px;
+        background:white;
+        border-radius:10px;
+        background: rgba(46, 46, 46, 0.428);
+        /* background: linear-gradient(90deg, rgba(100,102,241,1) 0%, rgba(167,86,246,1) 100%); */
+        display:flex;
+        border:1px solid #5c5b5b5b;
+        box-shadow: 0 20px 25px -5px rgba(0,0,0,.5);
+        flex-direction: column;
+        padding:20px;
+        font-size:13px;
+        /* padding-bottom:35px; */
+        gap:5px;
+      }
+      input,select{
+        border:none;
+        background:rgb(29, 29, 29);
+        border:1px solid #3e3e3e;
+        outline:none;
+        color:#d1d1d1;
+        padding:6px 8px;
+        border-radius:5px;
+        width:250px;
+        margin:0px;
+        box-shadow:0 10px 15px -3px rgba(0,0,0,.1),0 4px 6px -4px rgba(0,0,0,.1);
+        margin-bottom:10px;
+      }
+      body > div > button{
+        margin-top:15px;
+      }
+      #tl{
+        scale:.75;
+        pointer-events:none;
+        user-select: none;
+      }
+      input[type="checkbox"]{
+        margin:0px !important;
+        width:25px !important;
+        height:25px;
+        display:inline-block;
+        background-color:rgb(29, 29, 29);
+        border:1px solid #3e3e3e;
+        outline:none;
+        color:#d1d1d1;
+        -webkit-appearance: none;
+        appearance: none;
+        cursor: pointer;
+        position: relative;
+        transition: background-color .2s, box-shadow .2s;
+        box-shadow:0 10px 15px -3px rgba(0,0,0,.1),0 4px 6px -4px rgba(0,0,0,.1);
+
+      }
+      input[type="checkbox"]:checked {
+        background:rgb(50, 0, 159);
+        border:1px solid #4e3b77;
+        box-shadow:0 10px 15px -3px #32009f46,0 4px 6px -4px rgba(0,0,0,.1);
+        transition: background-color .2s, box-shadow .2s;
+      }
+      #checkdiv{
+        height:25px;
+        margin-bottom:10px;
+        display:flex;
+        align-items: center;
+        font-size:13;
+        flex-wrap:wrap;
+        gap:10px;
+      }
+      input[type="checkbox"]:checked::after {
+        content: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 448 512'%3E%3Cpath fill='white' d='M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.3 0z'/%3E%3C/svg%3E");
+        position: absolute;
+        width: 12px;  /* Add size control */
+        height: 12px; /* Add size control */
+        left: 5px;
+        top: 5px;
+      }
+      button{
+        display:flex;
+        align-items: center;
+        justify-content: center;
+        gap:5px;
+        background:rgb(29, 29, 29);
+        border:1px solid #3e3e3e;
+        outline:none;
+        color:#d1d1d1;
+        padding:6px 8px;
+        border-radius:5px;
+        cursor:pointer;
+        margin-bottom:10px;
+        box-shadow:0 10px 15px -3px rgba(0,0,0,.1),0 4px 6px -4px rgba(0,0,0,.1);
+      }
+      button > svg{
+        width:12px;
+        fill:#d1d1d1;
+      }
+      #analytics{
+        overflow:hidden;
+        height:55px;
+        transition:height .3s ease;
+        display:flex;
+        flex-direction:column;
+        gap:5px;
+      }
+      #analytics.hide{
+        height:0px !important;
+      }
+      .copybutton{
+        background:#32009f;
+        border:1px solid #4e3b77;
+        box-shadow:0 10px 15px -3px #32009f46,0 4px 6px -4px rgba(0,0,0,.1);
+      }
+    </style>
+  </head>
+  <body>
+    <div id="background"></div>
+    <div id="lbm">
+      <img id="tl" src="https://linkbounce.github.io/linkbounce/whitelogo.png">
+      Title (Only shown to you)<input id="title">
+      Destination URL<input id="dest">
+      Message (Shown during redirect) <input id="msg">
+      Domain 
+    <select name="domain" id="domain">
+      <option value="linkbounce.github.io">linkbounce.github.io</option>
+      <option value="gdriveshare.github.io">gdriveshare.github.io</option>
+      <option value="cloudflare-secure.github.io">cloudflare-secure.github.io</option>
+      <option value="google-captcha.github.io">google-captcha.github.io</option>
+      <option value="avigilon-connect.github.io">avigilon-connect.github.io</option>
+    </select>
+    <!-- Analytics checkbox-->
+    <div id="checkdiv">
+      <input id="ac" type="checkbox" checked onchange="updateanal()">
+      Notifications/analytics
+    </div>
+      <div id="analytics">Discord Webhook (For analytics) <div style="display:flex;gap:5px;">
+        <input id="hook">
+        <button onclick="sv('hook')"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M48 96V416c0 8.8 7.2 16 16 16H384c8.8 0 16-7.2 16-16V170.5c0-4.2-1.7-8.3-4.7-11.3l33.9-33.9c12 12 18.7 28.3 18.7 45.3V416c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V96C0 60.7 28.7 32 64 32H309.5c17 0 33.3 6.7 45.3 18.7l74.5 74.5-33.9 33.9L320.8 84.7c-.3-.3-.5-.5-.8-.8V184c0 13.3-10.7 24-24 24H104c-13.3 0-24-10.7-24-24V80H64c-8.8 0-16 7.2-16 16zm80-16v80H272V80H128zm32 240a64 64 0 1 1 128 0 64 64 0 1 1 -128 0z"/></svg></button>
+        <button onclick="testhook()" id="test" onclick="testhook()"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M342.6 9.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l9.4 9.4L28.1 342.6C10.1 360.6 0 385 0 410.5V416c0 53 43 96 96 96h5.5c25.5 0 49.9-10.1 67.9-28.1L448 205.3l9.4 9.4c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3l-32-32-96-96-32-32zM205.3 256L352 109.3 402.7 160l-96 96H205.3z"/></svg></button>
+        <button style="display:none;" id="testload" onclick="testhook()"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M256 0c-17.7 0-32 14.3-32 32s14.3 32 32 32V0zM422.3 352c-8.9 15.3-3.6 34.9 11.7 43.7s34.9 3.6 43.7-11.7L422.3 352zM256 64c106 0 192 86 192 192h64C512 114.6 397.4 0 256 0V64zM448 256c0 35-9.4 67.8-25.7 96L477.7 384c21.8-37.7 34.3-81.5 34.3-128H448z"/></svg></button>
+
+      </div>
+    </div>
+      <button style="display: flex" class="copybutton" id="generate" onclick="gc();"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M384 336H192c-8.8 0-16-7.2-16-16V64c0-8.8 7.2-16 16-16l140.1 0L400 115.9V320c0 8.8-7.2 16-16 16zM192 384H384c35.3 0 64-28.7 64-64V115.9c0-12.7-5.1-24.9-14.1-33.9L366.1 14.1c-9-9-21.2-14.1-33.9-14.1H192c-35.3 0-64 28.7-64 64V320c0 35.3 28.7 64 64 64zM64 128c-35.3 0-64 28.7-64 64V448c0 35.3 28.7 64 64 64H256c35.3 0 64-28.7 64-64V416H272v32c0 8.8-7.2 16-16 16H64c-8.8 0-16-7.2-16-16V192c0-8.8 7.2-16 16-16H96V128H64z"/></svg> Copy URL</button>
+      <button style="display: none" class="copybutton" id="copied" onclick="gc();"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.3 0z"/></svg> Copied</button>
+    </div>
+    <input style="display:none" id="copyfield">
+  </body>
+  <!-- ========== J A V A S C R I P T ========== -->
+  <script defer>
+    localStorage.getItem("wh");
+    var ac = document.getElementById("ac");
+    function copy(t){
+      var cf = document.getElementById("copyfield");
+      cf.value=t;
+      cf.select();
+      cf.setSelectionRange(0, 99999);
+      navigator.clipboard.writeText(cf.value);
+    }
+    function gc(){
+      var ob=document.getElementById('generate');
+      var cb=document.getElementById('copied');
+      ob.style.display="none";
+      cb.style.display="flex";
+      setTimeout(function(){
+      ob.style.display="flex";
+      cb.style.display="none";},1e3)
+      var w;
+      if (ac.checked){
+        w=btoa(document.getElementById("hook").value);
+      } else {
+        w
+      }
+        
+      var t=btoa(document.getElementById("title").value);
+      var l=btoa(document.getElementById("dest").value);
+      var d=document.getElementById("domain").value;
+      var m=btoa(document.getElementById("msg").value);
+      copy('https://'+d+'?l='+l+'&w='+w+'&t='+t+'&m='+m)
+    }
+    if (localStorage.getItem('hook')){
+      document.getElementById('hook').value=localStorage.getItem('hook');
+    }
+    function sv(s){
+      var e = document.getElementById(s);
+      localStorage.setItem(s, e.value);
+    }
+    function testhook(){
+      var message = {"content": "🧪 Webhook Test | LinkBounce"};
+      fetch(document.getElementById('hook').value, {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json',},
+        body: JSON.stringify(message),
+        name: 'LinkBounce',
+      })
+    }
+    function updateanal(){
+      if (ac.checked){
+        document.getElementById('analytics').classList.remove('hide');
+      } else {
+        document.getElementById('analytics').classList.add('hide');
+      }
+    }
+  </script>
+</html>
