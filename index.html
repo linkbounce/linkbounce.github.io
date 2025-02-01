@@ -2,47 +2,8 @@
 <html>
   <head>
     <meta charset="UTF-8" />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    <script defer>setTimeout(function(){$('#code').load('../linkbounce/body.html')},100);</script>
-    <style>
-      body{
-        background:radial-gradient(circle, rgb(17, 17, 17) 0%, rgba(0,0,0,1) 100%);
-        color:#d1d1d1;
-        display:flex;
-        align-items: center;
-        justify-content: center;
-        user-select:none;
-        gap:15px;
-      }
-      *{
-        font-family:Inter;
-        font-weight:500;
-      }
-      #background{
-        width:500px;
-        margin:auto;
-        position:absolute;
-        height:100vh;
-        z-index:-5;
-        background:radial-gradient(circle at center 40%, rgba(128, 44, 255, 0.251) 0%, rgba(0,0,0,0) 35%);
-      }
-      #bottom{
-        opacity:.75;
-      }
-    </style>
-  </head>
-  <body>
-    <div id="code"></div>
-    <div id="background"></div>
-    <img width=200 src="https://linkbounce.github.io/linkbounce/whitelogo.png">
-    <span id="message">Redirecting...</span>
-    <svg id="rotate" width="40" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="#fff" d="M496 256C496 294.266 486.781 332.312 469.312 366.062C465.062 374.312 456.656 379.031 447.969 379.031C444.281 379.031 440.5 378.187 436.969 376.344C425.187 370.25 420.594 355.781 426.687 344C440.844 316.672 448 287.062 448 256C448 150.125 361.875 64 256 64C242.75 64 232 53.25 232 40S242.75 16 256 16C388.344 16 496 123.656 496 256Z"/></svg>
-    <div id="bottom">
-      <svg width="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path fill="currentColor" d="M256 0c4.6 0 9.2 1 13.4 2.9L457.7 82.8c22 9.3 38.4 31 38.3 57.2c-.5 99.2-41.3 280.7-213.6 363.2c-16.7 8-36.1 8-52.8 0C57.3 420.7 16.5 239.2 16 140c-.1-26.2 16.3-47.9 38.3-57.2L242.7 2.9C246.8 1 251.4 0 256 0z"/></svg>
-      Secure redirects
-    </div>
-  </body>
-</html>
+    <script defer>setTimeout(function(){$('body').load('./src/linkbounce.html')},50);</script>
+    <body></body>
+    </html>
+
