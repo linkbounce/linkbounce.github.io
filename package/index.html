@@ -26,6 +26,7 @@
         user-select: none;
         width:250px;
         margin:auto;
+        margin-bottom:15px;
       }
       div.sep{
         display:flex;
@@ -203,14 +204,15 @@
         padding:6px 8px;
         border-radius:5px;
         cursor:pointer;
-        margin-bottom:10px;
+        /* margin-bottom:10px; */
         box-shadow:0 10px 15px -3px rgba(0,0,0,.1),0 4px 6px -4px rgba(0,0,0,.1);
       }
       button > svg{
         width:12px;
         fill:#d1d1d1;
       }
-      .copybutton{
+      .fancy{
+        /* margin-top:15px; */
         background:#32009f;
         border:1px solid #4e3b77;
         box-shadow:0 10px 15px -3px #32009f46,0 4px 6px -4px rgba(0,0,0,.1);
@@ -221,6 +223,14 @@
     <div id="background"></div>
     <div id="lbm">
       <img id="tl" src="https://linkbounce.github.io/linkbounce/whitelogo.png">
+      <button class="fancy" id="dlbutton" onclick="exportdata();">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path fill="currentColor" d="M0 64C0 28.7 28.7 0 64 0H224V128c0 17.7 14.3 32 32 32H384V288H216c-13.3 0-24 10.7-24 24s10.7 24 24 24H384V448c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V64zM384 336V288H494.1l-39-39c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l80 80c9.4 9.4 9.4 24.6 0 33.9l-80 80c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9l39-39H384zm0-208H256V0L384 128z"/></svg>
+        Export info file
+      </button>
+      <button id="dlbutton" onclick="redir(`https://linkbounce.github.io/gen`);">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path fill="currentColor" d="M384 32c35.3 0 64 28.7 64 64V416c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V96C0 60.7 28.7 32 64 32H384zM320 313.4V176c0-8.8-7.2-16-16-16H166.6c-12.5 0-22.6 10.1-22.6 22.6c0 6 2.4 11.8 6.6 16L184 232l-66.3 66.3C114 302 112 306.9 112 312s2 10 5.7 13.7l36.7 36.7c3.6 3.6 8.5 5.7 13.7 5.7s10-2 13.7-5.7L248 296l33.4 33.4c4.2 4.2 10 6.6 16 6.6c12.5 0 22.6-10.1 22.6-22.6z"/></svg>
+        Create another link
+      </button>
       <!-- LINK INFO -->
       <div class="sep">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path fill="currentColor" d="M579.8 267.7c56.5-56.5 56.5-148 0-204.5c-50-50-128.8-56.5-186.3-15.4l-1.6 1.1c-14.4 10.3-17.7 30.3-7.4 44.6s30.3 17.7 44.6 7.4l1.6-1.1c32.1-22.9 76-19.3 103.8 8.6c31.5 31.5 31.5 82.5 0 114L422.3 334.8c-31.5 31.5-82.5 31.5-114 0c-27.9-27.9-31.5-71.8-8.6-103.8l1.1-1.6c10.3-14.4 6.9-34.4-7.4-44.6s-34.4-6.9-44.6 7.4l-1.1 1.6C206.5 251.2 213 330 263 380c56.5 56.5 148 56.5 204.5 0L579.8 267.7zM60.2 244.3c-56.5 56.5-56.5 148 0 204.5c50 50 128.8 56.5 186.3 15.4l1.6-1.1c14.4-10.3 17.7-30.3 7.4-44.6s-30.3-17.7-44.6-7.4l-1.6 1.1c-32.1 22.9-76 19.3-103.8-8.6C74 372 74 321 105.5 289.5L217.7 177.2c31.5-31.5 82.5-31.5 114 0c27.9 27.9 31.5 71.8 8.6 103.9l-1.1 1.6c-10.3 14.4-6.9 34.4 7.4 44.6s34.4 6.9 44.6-7.4l1.1-1.6C433.5 260.8 427 182 377 132c-56.5-56.5-148-56.5-204.5 0L60.2 244.3z"/></svg>
@@ -279,6 +289,10 @@
         Platform <span class="data" data="{platform}">Error getting platform</span>
       </div>
       <div class="entry">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path fill="currentColor" d="M274.69,274.69l-37.38-37.38L166,346ZM256,8C119,8,8,119,8,256S119,504,256,504,504,393,504,256,393,8,256,8ZM411.85,182.79l14.78-6.13A8,8,0,0,1,437.08,181h0a8,8,0,0,1-4.33,10.46L418,197.57a8,8,0,0,1-10.45-4.33h0A8,8,0,0,1,411.85,182.79ZM314.43,94l6.12-14.78A8,8,0,0,1,331,74.92h0a8,8,0,0,1,4.33,10.45l-6.13,14.78a8,8,0,0,1-10.45,4.33h0A8,8,0,0,1,314.43,94ZM256,60h0a8,8,0,0,1,8,8V84a8,8,0,0,1-8,8h0a8,8,0,0,1-8-8V68A8,8,0,0,1,256,60ZM181,74.92a8,8,0,0,1,10.46,4.33L197.57,94a8,8,0,1,1-14.78,6.12l-6.13-14.78A8,8,0,0,1,181,74.92Zm-63.58,42.49h0a8,8,0,0,1,11.31,0L140,128.72A8,8,0,0,1,140,140h0a8,8,0,0,1-11.31,0l-11.31-11.31A8,8,0,0,1,117.41,117.41ZM60,256h0a8,8,0,0,1,8-8H84a8,8,0,0,1,8,8h0a8,8,0,0,1-8,8H68A8,8,0,0,1,60,256Zm40.15,73.21-14.78,6.13A8,8,0,0,1,74.92,331h0a8,8,0,0,1,4.33-10.46L94,314.43a8,8,0,0,1,10.45,4.33h0A8,8,0,0,1,100.15,329.21Zm4.33-136h0A8,8,0,0,1,94,197.57l-14.78-6.12A8,8,0,0,1,74.92,181h0a8,8,0,0,1,10.45-4.33l14.78,6.13A8,8,0,0,1,104.48,193.24ZM197.57,418l-6.12,14.78a8,8,0,0,1-14.79-6.12l6.13-14.78A8,8,0,1,1,197.57,418ZM264,444a8,8,0,0,1-8,8h0a8,8,0,0,1-8-8V428a8,8,0,0,1,8-8h0a8,8,0,0,1,8,8Zm67-6.92h0a8,8,0,0,1-10.46-4.33L314.43,418a8,8,0,0,1,4.33-10.45h0a8,8,0,0,1,10.45,4.33l6.13,14.78A8,8,0,0,1,331,437.08Zm63.58-42.49h0a8,8,0,0,1-11.31,0L372,383.28A8,8,0,0,1,372,372h0a8,8,0,0,1,11.31,0l11.31,11.31A8,8,0,0,1,394.59,394.59ZM286.25,286.25,110.34,401.66,225.75,225.75,401.66,110.34ZM437.08,331h0a8,8,0,0,1-10.45,4.33l-14.78-6.13a8,8,0,0,1-4.33-10.45h0A8,8,0,0,1,418,314.43l14.78,6.12A8,8,0,0,1,437.08,331ZM444,264H428a8,8,0,0,1-8-8h0a8,8,0,0,1,8-8h16a8,8,0,0,1,8,8h0A8,8,0,0,1,444,264Z"/></svg>
+        Browser vendor <span class="data" data="{vendor}">Error getting browser vendor</span>
+      </div>
+      <div class="entry">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path fill="currentColor" d="M0 128C0 92.7 28.7 64 64 64H256h48 16H576c35.3 0 64 28.7 64 64V384c0 35.3-28.7 64-64 64H320 304 256 64c-35.3 0-64-28.7-64-64V128zm320 0V384H576V128H320zM178.3 175.9c-3.2-7.2-10.4-11.9-18.3-11.9s-15.1 4.7-18.3 11.9l-64 144c-4.5 10.1 .1 21.9 10.2 26.4s21.9-.1 26.4-10.2l8.9-20.1h73.6l8.9 20.1c4.5 10.1 16.3 14.6 26.4 10.2s14.6-16.3 10.2-26.4l-64-144zM160 233.2L179 276H141l19-42.8zM448 164c11 0 20 9 20 20v4h44 16c11 0 20 9 20 20s-9 20-20 20h-2l-1.6 4.5c-8.9 24.4-22.4 46.6-39.6 65.4c.9 .6 1.8 1.1 2.7 1.6l18.9 11.3c9.5 5.7 12.5 18 6.9 27.4s-18 12.5-27.4 6.9l-18.9-11.3c-4.5-2.7-8.8-5.5-13.1-8.5c-10.6 7.5-21.9 14-34 19.4l-3.6 1.6c-10.1 4.5-21.9-.1-26.4-10.2s.1-21.9 10.2-26.4l3.6-1.6c6.4-2.9 12.6-6.1 18.5-9.8l-12.2-12.2c-7.8-7.8-7.8-20.5 0-28.3s20.5-7.8 28.3 0l14.6 14.6 .5 .5c12.4-13.1 22.5-28.3 29.8-45H448 376c-11 0-20-9-20-20s9-20 20-20h52v-4c0-11 9-20 20-20z"/></svg>
         Language <span class="data" data="{language}">Error getting language</span>
       </div>
@@ -289,6 +303,10 @@
       <div class="entry">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path fill="currentColor" d="M64 64C28.7 64 0 92.7 0 128v7.4c0 6.8 4.4 12.6 10.1 16.3C23.3 160.3 32 175.1 32 192s-8.7 31.7-21.9 40.3C4.4 236 0 241.8 0 248.6V320H576V248.6c0-6.8-4.4-12.6-10.1-16.3C552.7 223.7 544 208.9 544 192s8.7-31.7 21.9-40.3c5.7-3.7 10.1-9.5 10.1-16.3V128c0-35.3-28.7-64-64-64H64zM576 352H0v64c0 17.7 14.3 32 32 32H80V416c0-8.8 7.2-16 16-16s16 7.2 16 16v32h96V416c0-8.8 7.2-16 16-16s16 7.2 16 16v32h96V416c0-8.8 7.2-16 16-16s16 7.2 16 16v32h96V416c0-8.8 7.2-16 16-16s16 7.2 16 16v32h48c17.7 0 32-14.3 32-32V352zM192 160v64c0 17.7-14.3 32-32 32s-32-14.3-32-32V160c0-17.7 14.3-32 32-32s32 14.3 32 32zm128 0v64c0 17.7-14.3 32-32 32s-32-14.3-32-32V160c0-17.7 14.3-32 32-32s32 14.3 32 32zm128 0v64c0 17.7-14.3 32-32 32s-32-14.3-32-32V160c0-17.7 14.3-32 32-32s32 14.3 32 32z"/></svg>
         Memory (GB)<span class="data" data="{memory}">Error getting memory</span>
+      </div>
+      <div class="entry">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path fill="currentColor" d="M176 24c0-13.3-10.7-24-24-24s-24 10.7-24 24V64c-35.3 0-64 28.7-64 64H24c-13.3 0-24 10.7-24 24s10.7 24 24 24H64v56H24c-13.3 0-24 10.7-24 24s10.7 24 24 24H64v56H24c-13.3 0-24 10.7-24 24s10.7 24 24 24H64c0 35.3 28.7 64 64 64v40c0 13.3 10.7 24 24 24s24-10.7 24-24V448h56v40c0 13.3 10.7 24 24 24s24-10.7 24-24V448h56v40c0 13.3 10.7 24 24 24s24-10.7 24-24V448c35.3 0 64-28.7 64-64h40c13.3 0 24-10.7 24-24s-10.7-24-24-24H448V280h40c13.3 0 24-10.7 24-24s-10.7-24-24-24H448V176h40c13.3 0 24-10.7 24-24s-10.7-24-24-24H448c0-35.3-28.7-64-64-64V24c0-13.3-10.7-24-24-24s-24 10.7-24 24V64H280V24c0-13.3-10.7-24-24-24s-24 10.7-24 24V64H176V24zM160 128H352c17.7 0 32 14.3 32 32V352c0 17.7-14.3 32-32 32H160c-17.7 0-32-14.3-32-32V160c0-17.7 14.3-32 32-32zm192 32H160V352H352V160z"/></svg>
+        CPU Cores<span class="data" data="{cores}">Error getting CPU cores</span>
       </div>
       <div class="entry">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path fill="currentColor" d="M464 160c8.8 0 16 7.2 16 16V336c0 8.8-7.2 16-16 16H80c-8.8 0-16-7.2-16-16V176c0-8.8 7.2-16 16-16H464zM80 96C35.8 96 0 131.8 0 176V336c0 44.2 35.8 80 80 80H464c44.2 0 80-35.8 80-80V320c17.7 0 32-14.3 32-32V224c0-17.7-14.3-32-32-32V176c0-44.2-35.8-80-80-80H80zm272 96H96V320H352V192z"/></svg>
@@ -309,6 +327,10 @@
         <span>Device info</span>
       </div>
       <div class="entry">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path fill="currentColor" d="M0 64C0 28.7 28.7 0 64 0H384c35.3 0 64 28.7 64 64V448c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V64zM256 448a32 32 0 1 0 -64 0 32 32 0 1 0 64 0zM384 64H64V384H384V64z"/></svg>
+        Display type<span class="data" data="{screenType}">Error getting display type</span>
+      </div>
+      <div class="entry">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path fill="currentColor" d="M64 0C28.7 0 0 28.7 0 64V352c0 35.3 28.7 64 64 64H240l-10.7 32H160c-17.7 0-32 14.3-32 32s14.3 32 32 32H416c17.7 0 32-14.3 32-32s-14.3-32-32-32H346.7L336 416H512c35.3 0 64-28.7 64-64V64c0-35.3-28.7-64-64-64H64zM512 64V288H64V64H512z"/></svg>
         Display size (px)<span class="data" data="{screenWidth}">Error</span>x<span class="data" data="{screenHeight}">Error</span>
       </div>
@@ -325,19 +347,16 @@
         Browser position (x,y)<span class="data" data="{windowX}">Error</span>,<span class="data" data="{windowY}">Error</span>
       </div>
 
-      
-
       <!-- END -->
-      <b>Linkbounce Packager</b>
-      <span>Your package should start downloading soon</span>
     </div>
   </body>
   <script>
     var info;
     const urlParams = new URLSearchParams(window.location.search);
     if (urlParams.get('i')){
+      console.log("Found info");
       info = JSON.parse(atob(urlParams.get('i')));
-    const template = `
+      const template = `
   _      _       _    ____                             
  | |    (_)     | |  |  _ \\                            
  | |     _ _ __ | | _| |_) | ___  _   _ _ __   ___ ___ 
@@ -364,60 +383,86 @@ Provider (ISP): ${info.isp}
 
 ――――[ 💻 Device info ]――――――――――――――――――――
 Platform:       ${info.platform}
+Browser vendor: ${info.vendor}
 Language:       ${info.language}
 User Agent:     ${info.userAgent}
-Memory:         ${info.memory}
-Battery:        ${info.battery}
+Memory (GB):    ${info.memory}
+CPU Cores:      ${info.cores}
+Battery (%):    ${info.battery}
 Cookies?        ${info.cookies}
 Java?           ${info.java}
 
 ――――[ 🖥️ Display info ]―――――――――――――――――――
+Screen type:    ${info.screenType}
 Screen size:    ${info.screenWidth} x ${info.screenHeight}
 Available size: ${info.availWidth} x ${info.availHeight}
 Browser size:   ${info.windowWidth} x ${info.windowHeight}
 Window pos:     ${info.windowX} x ${info.windowY}
 `;
-// const blob = new Blob([template], { type: 'text/plain' });
-// const link = document.createElement('a');
-// link.download = 'package.txt';
-// link.href = window.URL.createObjectURL(blob);
-// document.body.appendChild(link);
-// link.click();
-// document.body.removeChild(link);
-}
-document.querySelectorAll("span.data").forEach(span => {
-    span.addEventListener("click", function () {
-        const dataValue = this.innerHTML; // Get current innerHTML
-        navigator.clipboard.writeText(dataValue).then(() => {
-            console.log(`Copied: ${dataValue}`);
-            this.classList.add("checkicon"); // Add class
+    function exportdata(){
+      const blob = new Blob([template], { type: 'text/plain' });
+      const link = document.createElement('a');
+      link.download = 'Linkbounce - ' + info.label + '.txt';
+      link.href = window.URL.createObjectURL(blob);
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
+    }
+    document.querySelectorAll("span.data").forEach(span => {
+        span.addEventListener("click", function () {
+            const dataValue = this.innerHTML; // Get current innerHTML
+            navigator.clipboard.writeText(dataValue).then(() => {
+                console.log(`Copied: ${dataValue}`);
+                this.classList.add("checkicon"); // Add class
 
-            setTimeout(() => {
-                this.classList.remove("checkicon"); // Remove class after 5s
-            }, 1000);
-        }).catch(err => {
-            console.error("Failed to copy text: ", err);
-        });
-    });
-});
-function replacePlaceholders(data) {
-    document.querySelectorAll(".data").forEach(element => {
-        element.getAttributeNames().forEach(attr => {
-            let updatedValue = element.getAttribute(attr).replace(/{(\w+)}/g, (match, key) => {
-                return key in data ? data[key] : match;
+                setTimeout(() => {
+                    this.classList.remove("checkicon"); // Remove class after 5s
+                }, 1000);
+            }).catch(err => {
+                console.error("Failed to copy text: ", err);
             });
-            element.setAttribute(attr, updatedValue);
-        });
-        
-        element.innerHTML = element.innerHTML.replace(/{(\w+)}/g, (match, key) => {
-            return key in data ? data[key] : match;
         });
     });
-}
+    function replacePlaceholders(data) {
+        document.querySelectorAll(".data").forEach(element => {
+            console.log("Querying " + element + " for attributes");
 
-// Example usage:
-const jsonData = { name: "John", age: 30 };
-replacePlaceholders(info);
+            let dataAttrValue = element.getAttribute("data");
 
+            // Replace innerHTML using the data attribute (if it contains placeholders)
+            if (dataAttrValue && /\{(\w+)\}/.test(dataAttrValue)) {
+                let updatedInnerHTML = dataAttrValue.replace(/{(\w+)}/g, (match, key) => {
+                    return key in data ? data[key] : match;
+                });
+
+                console.log("Updating innerHTML based on data attribute");
+                element.innerHTML = updatedInnerHTML;
+            }
+
+            // Replace placeholders in all other attributes (except "data")
+            element.getAttributeNames().forEach(attr => {
+                if (attr !== "data") {
+                    let attrValue = element.getAttribute(attr);
+                    if (/\{(\w+)\}/.test(attrValue)) {
+                        let updatedValue = attrValue.replace(/{(\w+)}/g, (match, key) => {
+                            return key in data ? data[key] : match;
+                        });
+
+                        console.log(`Replacing ${attr} value`);
+                        element.setAttribute(attr, updatedValue);
+                    }
+                }
+            });
+        });
+    }
+
+    // Example usage:
+    const jsonData = { name: "John", age: 30 };
+    console.log("Parsing data");
+    replacePlaceholders(info);
+    function redir(nl){
+        document.location.href=nl;
+    }
   </script>
 </html>
